@@ -25,42 +25,56 @@ function TransactionList({ transactions, onDeleteTransaction }) {
   return (
     <section className="list-section">
       <h2>Transactions</h2>
-      <table className="transaction-table">
-        <thead>
-          <tr>
-            <th>Description</th>
-            <th>Category</th>
-            <th>Type</th>
-            <th>Amount</th>
-            <th>Date</th>
-            <th>Action</th>
-          </tr>
-        </thead>
-        <tbody>
-          {transactions.map((transaction) => (
-            <tr key={transaction.id}>
-              <td>{transaction.description}</td>
-              <td>{transaction.category}</td>
-              <td className={transaction.type.toLowerCase()}>
-                {transaction.type}
-              </td>
-              <td className={`amount ${transaction.type.toLowerCase()}`}>
-                {transaction.type === 'Income' ? '+' : '-'}
-                {formatCurrency(transaction.amount)}
-              </td>
-              <td>{formatDate(transaction.date)}</td>
-              <td>
-                <button
-                  className="btn-delete"
-                  onClick={() => onDeleteTransaction(transaction.id)}
-                >
-                  Delete
-                </button>
-              </td>
+      <div className="table-wrapper">
+        <table className="transaction-table">
+          <thead>
+            <tr>
+              <th>Description</th>
+              <th>Category</th>
+              <th>Type</th>
+              <th>Amount</th>
+              <th>Date</th>
+              <th>Action</th>
             </tr>
-          ))}
-        </tbody>
-      </table>
+          </thead>
+          <tbody>
+            {transactions.map((transaction) => (
+              <tr key={transaction.id}>
+                <td className="transaction-desc">
+                  {transaction.description}
+                </td>
+                <td data-label="Category">
+                  {transaction.category}
+                </td>
+                <td
+                  data-label="Type"
+                  className={transaction.type.toLowerCase()}
+                >
+                  {transaction.type}
+                </td>
+                <td
+                  data-label="Amount"
+                  className={`amount ${transaction.type.toLowerCase()}`}
+                >
+                  {transaction.type === 'Income' ? '+' : '-'}
+                  {formatCurrency(transaction.amount)}
+                </td>
+                <td data-label="Date">
+                  {formatDate(transaction.date)}
+                </td>
+                <td data-label="Action" className="transaction-action">
+                  <button
+                    className="btn-delete"
+                    onClick={() => onDeleteTransaction(transaction.id)}
+                  >
+                    Delete
+                  </button>
+                </td>
+              </tr>
+            ))}
+          </tbody>
+        </table>
+      </div>
     </section>
   );
 }

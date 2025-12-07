@@ -286,6 +286,23 @@ body {
   font-size: 1.1rem;
 }
 
+/* Table wrapper for horizontal scroll on small screens */
+.table-wrapper {
+  width: 100%;
+  overflow-x: auto;
+  overflow-y: hidden;
+}
+
+.table-wrapper::-webkit-scrollbar {
+  height: 6px;
+}
+
+.table-wrapper::-webkit-scrollbar-thumb {
+  background-color: #ccc;
+  border-radius: 3px;
+}
+
+/* Desktop / tablet table */
 .transaction-table {
   width: 100%;
   border-collapse: collapse;
@@ -303,12 +320,14 @@ body {
   color: var(--text-dark);
   font-size: 0.95rem;
   border-bottom: 2px solid var(--border-color);
+  white-space: nowrap;
 }
 
 .transaction-table td {
   padding: 1.125rem 1rem;
   border-bottom: 1px solid var(--border-color);
   color: var(--text-dark);
+  vertical-align: middle;
 }
 
 .transaction-table tbody tr {
@@ -448,7 +467,7 @@ body {
   }
 }
 
-/* Responsive Design - Mobile */
+/* Mobile: card-style transactions */
 @media (max-width: 480px) {
   .app-header {
     padding: 1.5rem 1rem;
@@ -514,7 +533,7 @@ body {
   .form-group input,
   .form-group select {
     padding: 0.75rem 0.875rem;
-    font-size: 16px; /* Prevents zoom on iOS */
+    font-size: 16px;
   }
 
   .form-row {
@@ -542,22 +561,66 @@ body {
     font-size: 1rem;
   }
 
+  /* Card-style table */
   .transaction-table {
-    font-size: 0.85rem;
+    border-collapse: separate;
+    border-spacing: 0 0.75rem;
+    font-size: 0.9rem;
+    width: 100%;
   }
 
-  .transaction-table th {
-    padding: 0.75rem 0.5rem;
-    font-size: 0.85rem;
+  .transaction-table thead {
+    display: none;
+  }
+
+  .transaction-table tbody tr {
+    display: block;
+    background: #ffffff;
+    border-radius: 8px;
+    box-shadow: 0 1px 4px rgba(0, 0, 0, 0.06);
+    padding: 0.75rem 0.9rem;
   }
 
   .transaction-table td {
-    padding: 0.875rem 0.5rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border: none;
+    padding: 0.2rem 0;
+  }
+
+  .transaction-table td::before {
+    content: attr(data-label);
+    font-weight: 600;
+    color: var(--text-light);
+    margin-right: 0.75rem;
+    flex: 0 0 40%;
+    text-align: left;
+  }
+
+  .transaction-table td.transaction-desc {
+    font-weight: 600;
+    padding-bottom: 0.3rem;
+  }
+
+  .transaction-table td.transaction-desc::before {
+    content: "Description";
+    flex: 0 0 auto;
+    margin-right: 0.5rem;
+  }
+
+  .transaction-table td.transaction-action {
+    justify-content: flex-end;
+    margin-top: 0.3rem;
+  }
+
+  .transaction-table td.transaction-action::before {
+    content: "";
   }
 
   .btn-delete {
-    padding: 0.5rem 1rem;
-    font-size: 0.85rem;
+    padding: 0.4rem 0.9rem;
+    font-size: 0.8rem;
   }
 
   .app-footer {
