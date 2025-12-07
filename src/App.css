@@ -1,38 +1,567 @@
-.App {
-  text-align: center;
+/* Root variables */
+:root {
+  --primary-color: #0066cc;
+  --income-color: #00aa44;
+  --expense-color: #cc0000;
+  --neutral-gray: #f0f0f0;
+  --text-dark: #333;
+  --text-light: #666;
+  --border-color: #ddd;
+  --spacing-unit: 16px;
 }
 
-.App-logo {
-  height: 40vmin;
-  pointer-events: none;
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
 }
 
-@media (prefers-reduced-motion: no-preference) {
-  .App-logo {
-    animation: App-logo-spin infinite 20s linear;
-  }
+html {
+  font-size: 16px;
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
+    'Ubuntu', 'Cantarell', sans-serif;
+  -webkit-font-smoothing: antialiased;
 }
 
-.App-header {
-  background-color: #282c34;
-  min-height: 100vh;
+body {
+  background-color: #fafafa;
+  color: var(--text-dark);
+  line-height: 1.6;
+}
+
+.app {
   display: flex;
   flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  font-size: calc(10px + 2vmin);
+  min-height: 100vh;
+}
+
+/* Header */
+.app-header {
+  background: linear-gradient(135deg, var(--primary-color), #005aaa);
   color: white;
+  padding: 2.5rem 2rem;
+  text-align: center;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
 }
 
-.App-link {
-  color: #61dafb;
+.app-header h1 {
+  font-size: 2.5rem;
+  margin-bottom: 0.75rem;
+  font-weight: 700;
 }
 
-@keyframes App-logo-spin {
-  from {
-    transform: rotate(0deg);
+.app-header p {
+  font-size: 1.1rem;
+  opacity: 0.9;
+  margin: 0;
+}
+
+/* Main */
+.app-main {
+  flex: 1;
+  max-width: 1200px;
+  width: 100%;
+  margin: 0 auto;
+  padding: 3rem 2rem;
+}
+
+/* Summary Section */
+.summary {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  gap: 2rem;
+  margin-bottom: 3rem;
+}
+
+.summary-card {
+  background: white;
+  padding: 2rem;
+  border-radius: 8px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+  border-left: 4px solid var(--primary-color);
+  transition: transform 0.2s, box-shadow 0.2s;
+}
+
+.summary-card:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+}
+
+.summary-card.income {
+  border-left-color: var(--income-color);
+}
+
+.summary-card.expense {
+  border-left-color: var(--expense-color);
+}
+
+.summary-card.balance {
+  border-left-color: var(--primary-color);
+}
+
+.summary-card h3 {
+  font-size: 0.85rem;
+  color: var(--text-light);
+  margin-bottom: 1rem;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  font-weight: 600;
+}
+
+.summary-card .amount {
+  font-size: 2rem;
+  font-weight: 700;
+  color: var(--primary-color);
+  margin: 0;
+}
+
+.summary-card.income .amount {
+  color: var(--income-color);
+}
+
+.summary-card.expense .amount {
+  color: var(--expense-color);
+}
+
+/* Form Section */
+.form-section {
+  background: white;
+  padding: 2.5rem;
+  border-radius: 8px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+  margin-bottom: 3rem;
+}
+
+.form-section h2 {
+  font-size: 1.5rem;
+  margin-bottom: 1.5rem;
+  color: var(--text-dark);
+  font-weight: 600;
+}
+
+.transaction-form {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 1.5rem;
+}
+
+.form-group {
+  display: flex;
+  flex-direction: column;
+}
+
+.form-group label {
+  font-weight: 600;
+  margin-bottom: 0.75rem;
+  color: var(--text-dark);
+  font-size: 0.95rem;
+}
+
+.form-group input,
+.form-group select {
+  padding: 0.875rem 1rem;
+  border: 1px solid var(--border-color);
+  border-radius: 4px;
+  font-size: 1rem;
+  font-family: inherit;
+  transition: border-color 0.2s, box-shadow 0.2s;
+  background-color: white;
+}
+
+.form-group input::placeholder,
+.form-group select::placeholder {
+  color: #bbb;
+}
+
+.form-group input:focus,
+.form-group select:focus {
+  outline: none;
+  border-color: var(--primary-color);
+  box-shadow: 0 0 0 3px rgba(0, 102, 204, 0.1);
+}
+
+.form-row {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: 1.5rem;
+}
+
+.btn-primary {
+  background-color: var(--primary-color);
+  color: white;
+  padding: 1rem 2rem;
+  border: none;
+  border-radius: 4px;
+  font-size: 1rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background-color 0.2s, transform 0.1s;
+  align-self: flex-start;
+  width: 100%;
+}
+
+.btn-primary:hover {
+  background-color: #005aaa;
+}
+
+.btn-primary:active {
+  transform: scale(0.98);
+}
+
+.btn-primary:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+/* Filter Section */
+.filter-section {
+  background: white;
+  padding: 2.5rem;
+  border-radius: 8px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+  margin-bottom: 3rem;
+}
+
+.filter-section h2 {
+  font-size: 1.5rem;
+  margin-bottom: 1.5rem;
+  color: var(--text-dark);
+  font-weight: 600;
+}
+
+.filter-group {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: 1.5rem;
+}
+
+.filter-item {
+  display: flex;
+  flex-direction: column;
+}
+
+.filter-item label {
+  font-weight: 600;
+  margin-bottom: 0.75rem;
+  color: var(--text-dark);
+  font-size: 0.95rem;
+}
+
+.filter-item select {
+  padding: 0.875rem 1rem;
+  border: 1px solid var(--border-color);
+  border-radius: 4px;
+  font-size: 1rem;
+  background-color: white;
+  cursor: pointer;
+  transition: border-color 0.2s;
+}
+
+.filter-item select:focus {
+  outline: none;
+  border-color: var(--primary-color);
+  box-shadow: 0 0 0 3px rgba(0, 102, 204, 0.1);
+}
+
+/* List Section */
+.list-section {
+  background: white;
+  padding: 2.5rem;
+  border-radius: 8px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+  margin-bottom: 3rem;
+}
+
+.list-section h2 {
+  font-size: 1.5rem;
+  margin-bottom: 1.5rem;
+  color: var(--text-dark);
+  font-weight: 600;
+}
+
+.empty-state {
+  text-align: center;
+  color: var(--text-light);
+  padding: 2.5rem;
+  font-size: 1.1rem;
+}
+
+.transaction-table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-top: 0;
+}
+
+.transaction-table thead {
+  background-color: var(--neutral-gray);
+}
+
+.transaction-table th {
+  padding: 1rem;
+  text-align: left;
+  font-weight: 600;
+  color: var(--text-dark);
+  font-size: 0.95rem;
+  border-bottom: 2px solid var(--border-color);
+}
+
+.transaction-table td {
+  padding: 1.125rem 1rem;
+  border-bottom: 1px solid var(--border-color);
+  color: var(--text-dark);
+}
+
+.transaction-table tbody tr {
+  transition: background-color 0.2s;
+}
+
+.transaction-table tbody tr:hover {
+  background-color: #f9f9f9;
+}
+
+.transaction-table .amount {
+  font-weight: 600;
+}
+
+.transaction-table .amount.income {
+  color: var(--income-color);
+}
+
+.transaction-table .amount.expense {
+  color: var(--expense-color);
+}
+
+.transaction-table .income {
+  color: var(--income-color);
+  font-weight: 600;
+}
+
+.transaction-table .expense {
+  color: var(--expense-color);
+  font-weight: 600;
+}
+
+.btn-delete {
+  background-color: var(--expense-color);
+  color: white;
+  padding: 0.625rem 1.25rem;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  font-size: 0.9rem;
+  font-weight: 500;
+  transition: background-color 0.2s;
+  white-space: nowrap;
+}
+
+.btn-delete:hover {
+  background-color: #aa0000;
+}
+
+.btn-delete:active {
+  transform: scale(0.98);
+}
+
+/* Footer */
+.app-footer {
+  background-color: var(--text-dark);
+  color: white;
+  text-align: center;
+  padding: 1.5rem;
+  margin-top: auto;
+  font-size: 0.9rem;
+}
+
+/* Responsive Design - Tablet */
+@media (max-width: 768px) {
+  .app-header {
+    padding: 2rem 1.5rem;
   }
-  to {
-    transform: rotate(360deg);
+
+  .app-header h1 {
+    font-size: 2rem;
+    margin-bottom: 0.5rem;
+  }
+
+  .app-header p {
+    font-size: 1rem;
+  }
+
+  .app-main {
+    padding: 2rem 1.5rem;
+  }
+
+  .summary {
+    gap: 1.5rem;
+    margin-bottom: 2.5rem;
+  }
+
+  .summary-card {
+    padding: 1.5rem;
+  }
+
+  .summary-card h3 {
+    margin-bottom: 0.75rem;
+  }
+
+  .summary-card .amount {
+    font-size: 1.75rem;
+  }
+
+  .form-section,
+  .filter-section,
+  .list-section {
+    padding: 2rem;
+    margin-bottom: 2.5rem;
+  }
+
+  .form-section h2,
+  .filter-section h2,
+  .list-section h2 {
+    font-size: 1.25rem;
+    margin-bottom: 1.25rem;
+  }
+
+  .transaction-form {
+    gap: 1.25rem;
+  }
+
+  .form-row {
+    gap: 1.25rem;
+  }
+
+  .btn-primary {
+    padding: 0.875rem 1.75rem;
+  }
+
+  .transaction-table {
+    font-size: 0.95rem;
+  }
+
+  .transaction-table th,
+  .transaction-table td {
+    padding: 0.875rem;
+  }
+
+  .app-footer {
+    padding: 1.25rem;
+  }
+}
+
+/* Responsive Design - Mobile */
+@media (max-width: 480px) {
+  .app-header {
+    padding: 1.5rem 1rem;
+  }
+
+  .app-header h1 {
+    font-size: 1.5rem;
+    margin-bottom: 0.4rem;
+  }
+
+  .app-header p {
+    font-size: 0.95rem;
+  }
+
+  .app-main {
+    padding: 1.5rem 1rem;
+  }
+
+  .summary {
+    grid-template-columns: 1fr;
+    gap: 1rem;
+    margin-bottom: 2rem;
+  }
+
+  .summary-card {
+    padding: 1.25rem;
+  }
+
+  .summary-card h3 {
+    font-size: 0.8rem;
+    margin-bottom: 0.6rem;
+    letter-spacing: 0.5px;
+  }
+
+  .summary-card .amount {
+    font-size: 1.5rem;
+  }
+
+  .form-section,
+  .filter-section,
+  .list-section {
+    padding: 1.5rem;
+    margin-bottom: 2rem;
+    border-radius: 6px;
+  }
+
+  .form-section h2,
+  .filter-section h2,
+  .list-section h2 {
+    font-size: 1.1rem;
+    margin-bottom: 1rem;
+  }
+
+  .transaction-form {
+    gap: 1rem;
+  }
+
+  .form-group label {
+    margin-bottom: 0.6rem;
+    font-size: 0.9rem;
+  }
+
+  .form-group input,
+  .form-group select {
+    padding: 0.75rem 0.875rem;
+    font-size: 16px; /* Prevents zoom on iOS */
+  }
+
+  .form-row {
+    grid-template-columns: 1fr;
+    gap: 1rem;
+  }
+
+  .btn-primary {
+    width: 100%;
+    padding: 0.875rem 1.5rem;
+    font-size: 0.95rem;
+  }
+
+  .filter-group {
+    grid-template-columns: 1fr;
+    gap: 1rem;
+  }
+
+  .filter-item select {
+    padding: 0.75rem 0.875rem;
+  }
+
+  .empty-state {
+    padding: 1.5rem;
+    font-size: 1rem;
+  }
+
+  .transaction-table {
+    font-size: 0.85rem;
+  }
+
+  .transaction-table th {
+    padding: 0.75rem 0.5rem;
+    font-size: 0.85rem;
+  }
+
+  .transaction-table td {
+    padding: 0.875rem 0.5rem;
+  }
+
+  .btn-delete {
+    padding: 0.5rem 1rem;
+    font-size: 0.85rem;
+  }
+
+  .app-footer {
+    padding: 1rem;
+    font-size: 0.85rem;
   }
 }
